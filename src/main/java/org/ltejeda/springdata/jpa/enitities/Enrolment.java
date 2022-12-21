@@ -1,6 +1,7 @@
 package org.ltejeda.springdata.jpa.enitities;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity(name = "Enrolment")
 @Table(name = "enrolment")
@@ -19,15 +20,24 @@ public class Enrolment {
     @JoinColumn(name = "course_id")
     private Course course;
 
-    public Enrolment(EnrolmentId id, Student student, Course course) {
+    @Column(
+            name = "created_at",
+            nullable = false,
+            columnDefinition = "TIMESTAMP WITHOUT TIME ZONE"
+    )
+    private LocalDateTime createdAt;
+
+    public Enrolment(EnrolmentId id, Student student, Course course, LocalDateTime createdAt) {
         this.id = id;
         this.student = student;
         this.course = course;
+        this.createdAt = createdAt;
     }
 
-    public Enrolment(Student student, Course course) {
+    public Enrolment(Student student, Course course, LocalDateTime createdAt) {
         this.student = student;
         this.course = course;
+        this.createdAt = createdAt;
     }
 
     public Enrolment() {
@@ -55,5 +65,13 @@ public class Enrolment {
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }
