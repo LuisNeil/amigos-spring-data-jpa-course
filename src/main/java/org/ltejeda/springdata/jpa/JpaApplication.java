@@ -1,10 +1,7 @@
 package org.ltejeda.springdata.jpa;
 
 import com.github.javafaker.Faker;
-import org.ltejeda.springdata.jpa.enitities.Book;
-import org.ltejeda.springdata.jpa.enitities.Course;
-import org.ltejeda.springdata.jpa.enitities.Student;
-import org.ltejeda.springdata.jpa.enitities.StudentIdCard;
+import org.ltejeda.springdata.jpa.enitities.*;
 import org.ltejeda.springdata.jpa.repositories.StudentIdCardRepository;
 import org.ltejeda.springdata.jpa.repositories.StudentRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -53,8 +50,20 @@ public class JpaApplication {
 
 			student.setStudentIdCard(studentIdCard);
 
-			student.enrolToCourse(new Course("Computer Science", "IT"));
-			student.enrolToCourse(new Course("Amigoscode Spring Data JPA", "IT"));
+			student.addEnrolment(new Enrolment(
+					new EnrolmentId(1L, 1L),
+					student,
+					new Course("Computer Science", "IT")
+			));
+
+			student.addEnrolment(new Enrolment(
+					new EnrolmentId(1L, 2L),
+					student,
+					new Course("Amigoscode Spring Data JPA", "IT")
+			));
+
+//			student.enrolToCourse(new Course("Computer Science", "IT"));
+//			student.enrolToCourse(new Course("Amigoscode Spring Data JPA", "IT"));
 
 			studentRepository.save(student);
 
